@@ -94,7 +94,7 @@ def draw_bodypose(canvas, candidate, subset):
             polygon = cv2.ellipse2Poly((int(mY), int(mX)), (int(length / 2), stickwidth), int(angle), 0, 360, 1)
             cv2.fillConvexPoly(canvas, polygon, colors[i])
 
-    canvas = (canvas * 0.6).astype(np.uint8)
+    canvas = (canvas * 0.8).astype(np.uint8)
 
     for i in range(18):
         for n in range(len(subset)):

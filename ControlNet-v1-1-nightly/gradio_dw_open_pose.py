@@ -19,11 +19,14 @@ from cldm.ddim_hacked import DDIMSampler
 preprocessor = None
 dwprocessor = None
 
+# device = 'cuda' if torch.cuda.is_available() else 'cpu'
+device = 'cpu'
+
 model_name = 'control_v11p_sd15_openpose'
 model = create_model(f'./models/{model_name}.yaml').cpu()
-model.load_state_dict(load_state_dict('./models/v1-5-pruned.ckpt', location='cuda'), strict=False)
-model.load_state_dict(load_state_dict(f'./models/{model_name}.pth', location='cuda'), strict=False)
-model = model.cuda()
+model.load_state_dict(load_state_dict('./models/v1-5-pruned-emaonly.ckpt', location=device), strict=False)
+model.load_state_dict(load_state_dict(f'./models/{model_name}.pth', location=device), strict=False)
+model = model #.cuda()
 ddim_sampler = DDIMSampler(model)
 
 
@@ -55,7 +58,8 @@ def process(det, pose, input_image, prompt, a_prompt, n_prompt, num_samples, ima
 
         detected_map = cv2.resize(detected_map, (W, H), interpolation=cv2.INTER_LINEAR)
 
-        control = torch.from_numpy(detected_map.copy()).float().cuda() / 255.0
+        # control = torch.from_numpy(detected_map.copy()).float().cuda() / 255.0
+        control = torch.from_numpy(detected_map.copy()).float() / 255.0
         control = torch.stack([control for _ in range(num_samples)], dim=0)
         control = einops.rearrange(control, 'b h w c -> b c h w').clone()
 

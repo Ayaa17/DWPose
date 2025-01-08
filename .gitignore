@@ -1,0 +1,8 @@
+.idea/.gitignore
+.idea/DWPose.iml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/inspectionProfiles/profiles_settings.xml
+.idea/inspectionProfiles/Project_Default.xml
+ControlNet-v1-1-nightly/output

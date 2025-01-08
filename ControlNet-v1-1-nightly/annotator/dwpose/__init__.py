@@ -28,6 +28,24 @@ def draw_pose(pose, H, W):
 
     return canvas
 
+def draw_pose_with_origin(pose, H, W, ori):
+    print('ddd')
+    bodies = pose['bodies']
+    faces = pose['faces']
+    hands = pose['hands']
+    candidate = bodies['candidate']
+    subset = bodies['subset']
+
+    canvas = np.zeros(shape=(H, W, 3), dtype=np.uint8)
+    import cv2
+    canvas = cv2.addWeighted(ori, 1, canvas, 0, 0)
+
+    canvas = util.draw_bodypose(canvas, candidate, subset)
+    canvas = util.draw_handpose(canvas, hands)
+    canvas = util.draw_facepose(canvas, faces)
+
+    return canvas
+
 
 class DWposeDetector:
     def __init__(self):
@@ -65,4 +83,4 @@ class DWposeDetector:
             bodies = dict(candidate=body, subset=score)
             pose = dict(bodies=bodies, hands=hands, faces=faces)
 
-            return draw_pose(pose, H, W)
+            return draw_pose_with_origin(pose, H, W, oriImg)
