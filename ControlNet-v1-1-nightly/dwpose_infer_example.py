@@ -6,8 +6,7 @@ import matplotlib.pyplot as plt
 
 def pred_pose(image):
     pose = DWposeDetector()
-    test_image = 'test_imgs/anime3.jpg'
-    oriImg = cv2.imread(test_image)  # B,G,R order
+    oriImg = cv2.imread(image)  # B,G,R order
     out = pose(oriImg)
     plt.imsave('result.jpg', out)
 
@@ -39,6 +38,7 @@ def pred_images(input_folder, output_folder):
             plt.imsave(output_path, out)
             print(f"處理完成: {input_path} -> {output_path}")
 
+
 if __name__ == "__main__":
     image = 'test_imgs/anime3.jpg'
 
@@ -46,4 +46,4 @@ if __name__ == "__main__":
     images_output_dir = 'output'
 
     pred_pose(image)
-    pred_images(images_input_dir,images_output_dir)
+    pred_images(images_input_dir, images_output_dir)

@@ -83,4 +83,6 @@ class DWposeDetector:
             bodies = dict(candidate=body, subset=score)
             pose = dict(bodies=bodies, hands=hands, faces=faces)
 
-            return draw_pose_with_origin(pose, H, W, oriImg)
+            # return draw_pose_with_origin(pose, H, W, oriImg)
+            return draw_pose(pose, H, W)
+
