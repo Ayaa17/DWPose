@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  app:
+    image: pytorch:01.10
+    build:
+      context: .
+      dockerfile: Dockerfile
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    volumes:
+      - .:/app
+    working_dir: /app  # 指定工作目錄
+
+    command: >
+      python controlnet-infer_example.py
+    # nvidia-smi && \
+    # tty: true
+    # command: /bin/bash
